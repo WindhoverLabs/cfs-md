@@ -5,6 +5,11 @@ set( MEMORYCHECK_COMMAND_OPTIONS "--trace-children=yes --leak-check=full" )
 
 # Set include directories
 include_directories(
+	../mission_inc
+	../platform_inc
+	$ENV{CFE_DIR}/fsw/mission_inc
+	$ENV{CFE_DIR}/fsw/platform_inc/cpu1
+	${CMAKE_CURRENT_SOURCE_DIR}/../../../cfs_lib/fsw/src
 	${CMAKE_CURRENT_SOURCE_DIR}
 	${CFE_INC_DIRS}
 	${OSAL_INC_DIRS}
@@ -16,29 +21,69 @@ add_definitions(-DCFE_LINUX)
 set(CMAKE_C_FLAGS "-g -O0 -Wformat=0 -Wno-pointer-to-int-cast -Wno-int-to-pointer-cast -fprofile-arcs -ftest-coverage -m32")
 
 # Add the executables
-add_executable(MD-UT 
+add_executable(MD-UT1
 		${CMAKE_CURRENT_SOURCE_DIR}/md_unit_test1.c
-		${CMAKE_CURRENT_SOURCE_DIR}/md_unit_test2.c
-		${CMAKE_CURRENT_SOURCE_DIR}/md_unit_test3.c
-		${CMAKE_CURRENT_SOURCE_DIR}/md_unit_test4.c
+		${CMAKE_CURRENT_SOURCE_DIR}/../../../cfs_lib/fsw/src/cfs_utils.c
 		${APP_SRC}
 		${UTF_SRC})
-target_link_libraries(MD-UT -fprofile-arcs gcov ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(MD-UT1 -fprofile-arcs gcov ${CMAKE_THREAD_LIBS_INIT})
+
+add_executable(MD-UT2 
+		${CMAKE_CURRENT_SOURCE_DIR}/md_unit_test2.c
+		${CMAKE_CURRENT_SOURCE_DIR}/../../../cfs_lib/fsw/src/cfs_utils.c
+		${APP_SRC}
+		${UTF_SRC})
+target_link_libraries(MD-UT2 -fprofile-arcs gcov ${CMAKE_THREAD_LIBS_INIT})
+
+add_executable(MD-UT3 
+		${CMAKE_CURRENT_SOURCE_DIR}/md_unit_test3.c
+		${CMAKE_CURRENT_SOURCE_DIR}/../../../cfs_lib/fsw/src/cfs_utils.c
+		${APP_SRC}
+		${UTF_SRC})
+target_link_libraries(MD-UT3 -fprofile-arcs gcov ${CMAKE_THREAD_LIBS_INIT})
+
+add_executable(MD-UT4 
+		${CMAKE_CURRENT_SOURCE_DIR}/md_unit_test4.c
+		${CMAKE_CURRENT_SOURCE_DIR}/../../../cfs_lib/fsw/src/cfs_utils.c
+		${APP_SRC}
+		${UTF_SRC})
+target_link_libraries(MD-UT4 -fprofile-arcs gcov ${CMAKE_THREAD_LIBS_INIT})
 
 # We need to both run the test and compare the as-run with the expected output
 # with a diff command. 
-add_test(NAME md-ut
+add_test(NAME md-ut1
     COMMAND ${CMAKE_COMMAND}
-    	-DTEST_PROG=$<TARGET_FILE:MD-UT>
-    	-DEXPECTED_OUTPUT=${UNIT_TEST_INPUT_DIR}/md_utf_test.out
+    	-DTEST_PROG=$<TARGET_FILE:MD-UT1>
+    	-DEXPECTED_OUTPUT=${CMAKE_CURRENT_SOURCE_DIR}/md_utf_test.out
+    	-DACTUAL_OUTPUT=${CMAKE_CURRENT_BINARY_DIR}/md_utf_test.out
+    -P ${CMAKE_CURRENT_SOURCE_DIR}/runtest.cmake)
+    
+add_test(NAME md-ut2
+    COMMAND ${CMAKE_COMMAND}
+    	-DTEST_PROG=$<TARGET_FILE:MD-UT2>
+    	-DEXPECTED_OUTPUT=${CMAKE_CURRENT_SOURCE_DIR}/md_utf_test.out
+    	-DACTUAL_OUTPUT=${CMAKE_CURRENT_BINARY_DIR}/md_utf_test.out
+    -P ${CMAKE_CURRENT_SOURCE_DIR}/runtest.cmake)
+    
+add_test(NAME md-ut3
+    COMMAND ${CMAKE_COMMAND}
+    	-DTEST_PROG=$<TARGET_FILE:MD-UT3>
+    	-DEXPECTED_OUTPUT=${CMAKE_CURRENT_SOURCE_DIR}/md_utf_test.out
+    	-DACTUAL_OUTPUT=${CMAKE_CURRENT_BINARY_DIR}/md_utf_test.out
+    -P ${CMAKE_CURRENT_SOURCE_DIR}/runtest.cmake)
+    
+add_test(NAME md-ut4
+    COMMAND ${CMAKE_COMMAND}
+    	-DTEST_PROG=$<TARGET_FILE:MD-UT4>
+    	-DEXPECTED_OUTPUT=${CMAKE_CURRENT_SOURCE_DIR}/md_utf_test.out
     	-DACTUAL_OUTPUT=${CMAKE_CURRENT_BINARY_DIR}/md_utf_test.out
     -P ${CMAKE_CURRENT_SOURCE_DIR}/runtest.cmake)
 
 # Copy input files to build directory
-configure_file(${UNIT_TEST_INPUT_DIR}/md_unit_test1.in ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
-configure_file(${UNIT_TEST_INPUT_DIR}/md_unit_test2.in ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
-configure_file(${UNIT_TEST_INPUT_DIR}/md_unit_test3.in ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
-configure_file(${UNIT_TEST_INPUT_DIR}/md_unit_test4.in ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/md_unit_test1.in ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/md_unit_test2.in ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/md_unit_test3.in ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/md_unit_test4.in ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
 
 # Build tables for the tests
 add_subdirectory(ram ram)

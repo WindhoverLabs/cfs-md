@@ -31,7 +31,7 @@ set_target_properties(md_dw2_tbl PROPERTIES PREFIX "" SUFFIX ".tbl")
 set_target_properties(md_dw3_tbl PROPERTIES PREFIX "" SUFFIX ".tbl")
 set_target_properties(md_dw4_tbl PROPERTIES PREFIX "" SUFFIX ".tbl")
 
-#add_subdirectory(../unit_test unit_test)
+add_subdirectory(../unit_test unit_test)
 
 # Generate documentation
 find_package(Doxygen)
