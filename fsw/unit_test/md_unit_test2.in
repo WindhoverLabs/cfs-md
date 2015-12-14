@@ -3,7 +3,7 @@
 * * * * * * * * * * * * * * * * * * * * *
 *
 * * * -> Send Housekeeping packet
-1891 C000 0001 0000
+9118 00C0 0100 0000
 
 *
 * * * * * * * * * * * * * * * * * * * * *
@@ -19,7 +19,7 @@
 * * * 2) Pipe Read error message which in turn triggers
 * * * 3) Application termination.
 * * * * * * * * * * * * * * * * * * * * *
-1891 C000 0001 0000
+9118 00C0 0100 0000
 
 *@SET_SB_RETURN_CODE 5 0xca000009L
 *@USE_DEFAULT_SB_RETURN_CODE 5
@@ -29,13 +29,13 @@
 *
 * * * ->  Noop command
 * * * Expected output: event message
-1890 C000 0001 0000 ; Noop command
+9018 00C0 0100 0000 ; Noop command
 
 *
 * * * ->  Reset command
 * * * Expected output: event message
-1890 C000 0001 0100; Reset command
+9018 00C0 0100 0100; Reset command
 
 *
 * * * -> Send Housekeeping packet
-1891 C000 0001 0000
+9118 00C0 0100 0000
