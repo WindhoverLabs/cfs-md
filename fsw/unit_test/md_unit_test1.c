@@ -173,10 +173,10 @@ void UTF_AddSimulatedMemory ( int argc, char *argv[])
     int32 RetVal;
     uint8 data1[4];
     uint32 data2;
-    data1[1] = 0xAA;
-    data1[2] = 0xBB;
-    data1[3] = 0xCC;
-    data1[4] = 0xDD;
+    data1[0] = 0xAA;
+    data1[1] = 0xBB;
+    data1[2] = 0xCC;
+    data1[3] = 0xDD;
     data2 = 0xabbadaba;
 
     /* Calling UTF_read_sim_address makes UTF simulate successful reads */
