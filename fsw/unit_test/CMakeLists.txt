@@ -51,33 +51,13 @@ target_link_libraries(MD-UT4 -fprofile-arcs gcov ${CMAKE_THREAD_LIBS_INIT})
 
 # We need to both run the test and compare the as-run with the expected output
 # with a diff command. 
-add_test(NAME md-ut1
-    COMMAND ${CMAKE_COMMAND}
-    	-DTEST_PROG=$<TARGET_FILE:MD-UT1>
-    	-DEXPECTED_OUTPUT=${CMAKE_CURRENT_SOURCE_DIR}/md_unit_test1.out
-    	-DACTUAL_OUTPUT=${CMAKE_CURRENT_BINARY_DIR}/md_unit_test1.out
-    -P ${CMAKE_CURRENT_SOURCE_DIR}/runtest.cmake)
+add_test(NAME md-ut1 COMMAND $<TARGET_FILE:MD-UT1>)
     
-add_test(NAME md-ut2
-    COMMAND ${CMAKE_COMMAND}
-    	-DTEST_PROG=$<TARGET_FILE:MD-UT2>
-    	-DEXPECTED_OUTPUT=${CMAKE_CURRENT_SOURCE_DIR}/md_unit_test2.out
-    	-DACTUAL_OUTPUT=${CMAKE_CURRENT_BINARY_DIR}/md_unit_test2.out
-    -P ${CMAKE_CURRENT_SOURCE_DIR}/runtest.cmake)
+add_test(NAME md-ut2 COMMAND $<TARGET_FILE:MD-UT2>)
     
-add_test(NAME md-ut3
-    COMMAND ${CMAKE_COMMAND}
-    	-DTEST_PROG=$<TARGET_FILE:MD-UT3>
-    	-DEXPECTED_OUTPUT=${CMAKE_CURRENT_SOURCE_DIR}/md_unit_test3.out
-    	-DACTUAL_OUTPUT=${CMAKE_CURRENT_BINARY_DIR}/md_unit_test3.out
-    -P ${CMAKE_CURRENT_SOURCE_DIR}/runtest.cmake)
+add_test(NAME md-ut3 COMMAND $<TARGET_FILE:MD-UT3>)
     
-add_test(NAME md-ut4
-    COMMAND ${CMAKE_COMMAND}
-    	-DTEST_PROG=$<TARGET_FILE:MD-UT4>
-    	-DEXPECTED_OUTPUT=${CMAKE_CURRENT_SOURCE_DIR}/md_unit_test4.out
-    	-DACTUAL_OUTPUT=${CMAKE_CURRENT_BINARY_DIR}/md_unit_test4.out
-    -P ${CMAKE_CURRENT_SOURCE_DIR}/runtest.cmake)
+add_test(NAME md-ut4 COMMAND $<TARGET_FILE:MD-UT4>)
 
 # Copy input files to build directory
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/md_unit_test1.in ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
