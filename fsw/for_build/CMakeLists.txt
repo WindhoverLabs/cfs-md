@@ -19,13 +19,13 @@ include_directories(${OSAL_INC_DIRS})
 include_directories(${PSP_INC_DIRS})
 	
 # Build application
-add_library(${APP_FILE} SHARED ${APP_SRC})
+add_app(${APP_FILE} SHARED ${APP_SRC})
 
 # Build tables
-add_library(md_dw1_tbl STATIC ${TABLE_DIR}/md_dw1_tbl.c)
-add_library(md_dw2_tbl STATIC ${TABLE_DIR}/md_dw2_tbl.c)
-add_library(md_dw3_tbl STATIC ${TABLE_DIR}/md_dw3_tbl.c)
-add_library(md_dw4_tbl STATIC ${TABLE_DIR}/md_dw4_tbl.c)
+add_app(md_dw1_tbl STATIC ${TABLE_DIR}/md_dw1_tbl.c)
+add_app(md_dw2_tbl STATIC ${TABLE_DIR}/md_dw2_tbl.c)
+add_app(md_dw3_tbl STATIC ${TABLE_DIR}/md_dw3_tbl.c)
+add_app(md_dw4_tbl STATIC ${TABLE_DIR}/md_dw4_tbl.c)
 set_target_properties(md_dw1_tbl PROPERTIES PREFIX "" SUFFIX ".tbl")
 set_target_properties(md_dw2_tbl PROPERTIES PREFIX "" SUFFIX ".tbl")
 set_target_properties(md_dw3_tbl PROPERTIES PREFIX "" SUFFIX ".tbl")
